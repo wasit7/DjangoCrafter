@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    # Map container port 8000 to host port 8000
+    ports:
+      - "8000:8000"
+    # Bind mount your current folder into /app inside the container
+    volumes:
+      - .:/app
+    # Environment variables (optional)
+    environment:
+      PYTHONUNBUFFERED: "1"
