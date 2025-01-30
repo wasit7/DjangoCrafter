@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from decimal import Decimal
 
 class Bike(models.Model):
     # For example, a bike name and its status
@@ -27,7 +28,7 @@ class Rental(models.Model):
         # based on difference in hours and the bike's hourly_rate
         if self.end_time and not self.total_fee:
             duration = self.end_time - self.start_time
-            hours = duration.total_seconds() / 3600
+            hours = Decimal(duration.total_seconds() / 3600)
             self.total_fee = round(hours * self.bike.hourly_rate, 2)
 
             # Mark bike as available again
