@@ -15,5 +15,4 @@ docker-compose exec web bash
 docker-compose exec web bash
 cd myproject
 python manage.py createsuperuser
-chmod -R 777 .
 ```
