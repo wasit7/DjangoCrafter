@@ -16,3 +16,12 @@ This repository contains:
 - A collaborative platform to foster student creativity and innovation.
 
 **DjangoCrafter** empowers students to craft robust web applications while addressing real-world challenges through modern, efficient development practices. Whether you’re a beginner or an aspiring data scientist, this repository equips you with essential skills to bring your ideas to life.
+
+# Setup
+```bash
+cp -pr ./_template/ ./week02/
+cd week02
+docker stop django_project
+docker rm django_project
+docker-compose up --build
+```
