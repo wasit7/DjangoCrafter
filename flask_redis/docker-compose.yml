@@ -1,0 +1,18 @@
+services:
+  web:
+    build: .
+    container_name: flask_web
+    ports:
+      - "5000:5000"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    container_name: flask_redis
+    ports:
+      - "6378:6379"
+
+volumes:
+  # Optional: If you need to persist Redis data across container restarts
+  redis_data:

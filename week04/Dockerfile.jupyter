@@ -1,0 +1,31 @@
+# Dockerfile.jupyter
+FROM python:3.9-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set the repository root as the working directory
+WORKDIR /usr/src/app
+
+# Copy the requirements file for caching
+COPY requirements_jupyter.txt .
+
+# Install Python dependencies using the updated requirements file
+RUN pip install --no-cache-dir -r requirements_jupyter.txt
+
+# Copy the entire project into the container
+COPY . .
+
+# Change the working directory to the Django project folder (where manage.py is located)
+WORKDIR /usr/src/app/myproject
+
+# Expose port 8888 for JupyterLab
+EXPOSE 8888
+
+# Launch django-extensions shell_plus with notebook support,
+# passing additional arguments to allow running as root,
+# bind to all interfaces, and disable the token.
+CMD ["python", "manage.py", "shell_plus", "--notebook", "--", "--allow-root", "--ip=0.0.0.0", "--NotebookApp.token="]

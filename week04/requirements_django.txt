@@ -1,0 +1,9 @@
+Django==4.2
+psycopg2-binary==2.9.6
+django-extensions==3.2.3
+
+# For exploring data in notebooks (if you prefer to install them here rather than at runtime)
+jupyterlab==4.0.2
+
+# Optionally, add other libraries:
+# tailwindcss, whitenoise, or anything else you use in your project

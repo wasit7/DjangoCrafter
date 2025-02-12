@@ -1,46 +1,3 @@
-# Setup
-```sh
-cp -rp _template week03
-cd wee03
-docker stop django_project
-docker rm django_project
-docker compose up --build
-```
-
-# Go inside container
-```sh
-docker compose exec web bash
-```
-
-# Create App
-```sh
-docker compose exec web bash
-cd myproject
-python manage.py createsuperuser
-python manage.py startapp myapp
-chmod -R 777 .
-```
-
-
-# Add app, models and admin
-
-## add app
-```python
-#/week03/myproject/myproject/settings.py
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'myapp'
-]
-```
-
-## add models
-```python
-#/week03/myproject/myapp/models.py
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -54,7 +11,7 @@ class Bike(models.Model):
 
     def __str__(self):
         return self.name
-
+    
 class Rental(models.Model):
     # Rental references user, bike, start & end times, total fee
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -84,34 +41,3 @@ class Rental(models.Model):
             self.bike.save()
 
         super().save(*args, **kwargs)
-
-``` 
-
-## add admin
-```python
-#/week03/myproject/myapp/admin.py
-from django.contrib import admin
-from .models import Bike, Rental
-
-@admin.register(Bike)
-class BikeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'is_available', 'hourly_rate')
-    list_editable = ('is_available', 'hourly_rate')
-    list_filter = ('is_available',)
-    search_fields = ('name',)
-
-@admin.register(Rental)
-class RentalAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'bike', 'start_time', 'end_time', 'total_fee')
-    list_filter = ('start_time', 'bike__name')
-    search_fields = ('user__username', 'bike__name')
-
-```
-
-# Make database migration
-```sh
-docker-compose exec web bash
-cd myproject
-python manage.py makemigrations
-python manage.py migrate
-```
