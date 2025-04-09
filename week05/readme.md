@@ -1,9 +1,9 @@
 # week04 Tutorial
+<img src="https://raw.githubusercontent.com/wasit7/DjangoCrafter/refs/heads/main/week05/Screenshot%20from%202025-04-09%2023-57-29.png" width="30%">
+<img src="https://raw.githubusercontent.com/wasit7/DjangoCrafter/refs/heads/main/week05/Screenshot%20from%202025-04-09%2023-56-22.png" width="30%">
+<img src="https://raw.githubusercontent.com/wasit7/DjangoCrafter/refs/heads/main/week05/Screenshot%20from%202025-04-09%2023-56-28.png" width="30%">
+<img src="https://raw.githubusercontent.com/wasit7/DjangoCrafter/refs/heads/main/week05/Screenshot%20from%202025-04-09%2023-57-18.png" width="30%">
 
-<img src="https://raw.githubusercontent.com/wasit7/DjangoCrafter/refs/heads/main/week05/Screenshot%20from%202025-04-09%2023-56-22.png" width="50%">
-<img src="https://raw.githubusercontent.com/wasit7/DjangoCrafter/refs/heads/main/week05/Screenshot%20from%202025-04-09%2023-56-28.png" width="50%">
-<img src="https://raw.githubusercontent.com/wasit7/DjangoCrafter/refs/heads/main/week05/Screenshot%20from%202025-04-09%2023-57-18.png" width="50%">
-<img src="https://raw.githubusercontent.com/wasit7/DjangoCrafter/refs/heads/main/week05/Screenshot%20from%202025-04-09%2023-57-29.png" width="50%">
 
 
 # setup
