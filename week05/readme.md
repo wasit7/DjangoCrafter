@@ -1,6 +1,11 @@
 # week04 Tutorial
 
-![home page](https://raw.githubusercontent.com/wasit7/DjangoCrafter/refs/heads/main/week05/Screenshot%20from%202025-04-09%2023-56-22.png)
+<img src="https://raw.githubusercontent.com/wasit7/DjangoCrafter/refs/heads/main/week05/Screenshot%20from%202025-04-09%2023-56-22.png" height="50%">
+<img src="https://raw.githubusercontent.com/wasit7/DjangoCrafter/refs/heads/main/week05/Screenshot%20from%202025-04-09%2023-56-22.png" height="50%">
+<img src="https://raw.githubusercontent.com/wasit7/DjangoCrafter/refs/heads/main/week05/Screenshot%20from%202025-04-09%2023-56-22.png" height="50%">
+<img src="https://raw.githubusercontent.com/wasit7/DjangoCrafter/refs/heads/main/week05/Screenshot%20from%202025-04-09%2023-56-22.png" height="50%">
+
+
 # setup
 
 ```sh
