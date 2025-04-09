@@ -1,0 +1,50 @@
+services:
+  db:
+    image: postgres:14
+    container_name: postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=django_db
+      - POSTGRES_USER=django_user
+      - POSTGRES_PASSWORD=django_pass
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.django
+    container_name: django
+    volumes:
+      - .:/usr/src/app:rw
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - POSTGRES_DB=django_db
+      - POSTGRES_USER=django_user
+      - POSTGRES_PASSWORD=django_pass
+      - POSTGRES_HOST=db
+    depends_on:
+      - db
+    command: /bin/bash /usr/src/app/entrypoint.sh
+
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile.jupyter
+    container_name: jupyter
+    working_dir: /usr/src/app/myproject
+    volumes:
+      - .:/usr/src/app:rw
+    ports:
+      - "8888:8888"
+    environment:
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - db
+
+volumes:
+  db_data:

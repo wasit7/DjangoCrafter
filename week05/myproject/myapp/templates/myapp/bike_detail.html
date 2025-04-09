@@ -1,0 +1,21 @@
+<!-- /myproject/myapp/templates/myapp/bike_detail.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ bike.name }} Details</title>
+    <style>
+        .bike-image { max-width: 300px; }
+    </style>
+</head>
+<body>
+    <h1>{{ bike.name }}</h1>
+    <p><strong>Hourly Rate:</strong> ${{ bike.hourly_rate }}</p>
+    <p><strong>Available:</strong> {% if bike.is_available %}Yes{% else %}No{% endif %}</p>
+    <p><strong>Description:</strong> {{ bike.description }}</p>
+    {% if bike.image %}
+        <img src="{{ bike.image.url }}" alt="{{ bike.name }}" class="bike-image">
+    {% endif %}
+    <br><br>
+    <a href="{% url 'bike_list' %}">Back to Bike List</a> | <a href="{% url 'home' %}">Home</a>
+</body>
+</html>

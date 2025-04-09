@@ -1,0 +1,36 @@
+<!-- /myproject/myapp/templates/myapp/bike_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bike List</title>
+    <style>
+        .bike-item { margin: 20px 0; }
+        .bike-image { max-width: 200px; }
+        .search-form { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Available Bikes</h1>
+
+    <!-- Search Form -->
+    <form method="get" class="search-form">
+        <input type="text" name="q" placeholder="Search bikes..." value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <ul>
+    {% for bike in bikes %}
+        <li class="bike-item">
+            <a href="{% url 'bike_detail' bike.pk %}">{{ bike.name }}</a> - ${{ bike.hourly_rate }}/hr
+            {% if bike.image %}
+                <br><img src="{{ bike.image.url }}" alt="{{ bike.name }}" class="bike-image">
+            {% endif %}
+            <!-- <p>{{ bike.description }}</p> -->
+        </li>
+    {% empty %}
+        <li>No bikes available.</li>
+    {% endfor %}
+    </ul>
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>
