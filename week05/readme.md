@@ -1,4 +1,6 @@
 # week04 Tutorial
+
+![home page](Screenshot from 2025-04-09 23-56-22.png)
 # setup
 
 ```sh
