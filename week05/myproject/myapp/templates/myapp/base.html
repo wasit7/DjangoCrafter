@@ -1,0 +1,47 @@
+<!-- /myproject/myapp/templates/myapp/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bike Rental{% endblock %}</title>
+    <!-- Google Fonts: Noto Sans Thai -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Override Tailwind's font-sans with Noto Sans Thai */
+        body {
+            font-family: 'Noto Sans Thai', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header with Navigation (Facebook-like dark blue) -->
+    <header class="bg-blue-700 text-white p-4 shadow">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">
+                <a href="{% url 'home' %}" class="hover:text-gray-200 transition">เช่าจักรยาน</a>
+            </h1>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="{% url 'home' %}" class="hover:text-gray-200 transition">หน้าแรก</a></li>
+                    <li><a href="{% url 'bike_list' %}" class="hover:text-gray-200 transition">จักรยาน</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-6">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer (Facebook-like light gray) -->
+    <footer class="bg-gray-100 text-gray-600 p-4 mt-6">
+        <div class="container mx-auto text-center">
+            <p>© 2568 เช่าจักรยาน. สงวนลิขสิทธิ์ทั้งหมด.</p>
+        </div>
+    </footer>
+</body>
+</html>

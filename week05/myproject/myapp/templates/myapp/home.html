@@ -1,12 +1,7 @@
-<!-- /myproject/myapp/templates/myapp/home.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Bike Rental Home</title>
-</head>
-<body>
-    <h1>Welcome to Bike Rental</h1>
-    <p>Rent a bike today and explore the city!</p>
-    <a href="{% url 'bike_list' %}">View Available Bikes</a>
-</body>
-</html>
+{% extends 'myapp/base.html' %}
+{% block title %}Bike Rental Home{% endblock %}
+{% block content %}
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">Welcome to Bike Rental</h1>
+    <p class="text-lg text-gray-600 mb-6">Rent a bike today and explore the city!</p>
+    <a href="{% url 'bike_list' %}" class="inline-block bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition">View Available Bikes</a>
+{% endblock %}

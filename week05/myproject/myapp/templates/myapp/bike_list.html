@@ -1,36 +1,23 @@
-<!-- /myproject/myapp/templates/myapp/bike_list.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Bike List</title>
-    <style>
-        .bike-item { margin: 20px 0; }
-        .bike-image { max-width: 200px; }
-        .search-form { margin-bottom: 20px; }
-    </style>
-</head>
-<body>
-    <h1>Available Bikes</h1>
-
-    <!-- Search Form -->
-    <form method="get" class="search-form">
-        <input type="text" name="q" placeholder="Search bikes..." value="{{ request.GET.q }}">
-        <button type="submit">Search</button>
+{% extends 'myapp/base.html' %}
+{% block title %}Bike List{% endblock %}
+{% block content %}
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Available Bikes</h1>
+    <form method="get" class="mb-6 flex gap-2">
+        <input type="text" name="q" placeholder="Search bikes..." value="{{ request.GET.q }}" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition">Search</button>
     </form>
-
-    <ul>
-    {% for bike in bikes %}
-        <li class="bike-item">
-            <a href="{% url 'bike_detail' bike.pk %}">{{ bike.name }}</a> - ${{ bike.hourly_rate }}/hr
-            {% if bike.image %}
-                <br><img src="{{ bike.image.url }}" alt="{{ bike.name }}" class="bike-image">
-            {% endif %}
-            <!-- <p>{{ bike.description }}</p> -->
-        </li>
-    {% empty %}
-        <li>No bikes available.</li>
-    {% endfor %}
-    </ul>
-    <a href="{% url 'home' %}">Back to Home</a>
-</body>
-</html>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% for bike in bikes %}
+            <div class="bg-white p-4 rounded shadow hover:shadow-lg transition flex flex-col">
+                <a href="{% url 'bike_detail' bike.pk %}" class="text-xl font-semibold text-blue-600 hover:underline">{{ bike.name }}</a>
+                <span class="text-gray-600"> ${{ bike.hourly_rate }}/hr</span>
+                {% if bike.image %}
+                    <img src="{{ bike.image.url }}" alt="{{ bike.name }}" class="mt-2 w-full h-48 object-cover rounded">
+                {% endif %}
+                <!-- <p class="text-gray-700 mt-2 flex-grow">{{ bike.description }}</p> -->
+            </div>
+        {% empty %}
+            <div class="text-gray-600 col-span-full">No bikes available.</div>
+        {% endfor %}
+    </div>
+{% endblock %}

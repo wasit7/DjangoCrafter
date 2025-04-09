@@ -14,7 +14,7 @@ class BikeListView(ListView):
     context_object_name = 'bikes'  # Name of the variable in the template
     
     def get_queryset(self):
-        queryset = super().get_queryset()  # Get the default queryset (all bikes)
+        queryset = super().get_queryset().order_by('-hourly_rate')  # Get the default queryset (all bikes)
         query = self.request.GET.get('q')  # Get the search term from the URL (e.g., ?q=mountain)
         if query:
             # Filter bikes where name or description contains the query (case-insensitive)
