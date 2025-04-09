@@ -1,6 +1,6 @@
 # week04 Tutorial
 
-![home page](./Screenshot from 2025-04-09 23-56-22.png)
+![home page](https://github.com/wasit7/DjangoCrafter/edit/main/week05/Screenshot%20from%202025-04-09%2023-56-22.png?raw=true)
 # setup
 
 ```sh
