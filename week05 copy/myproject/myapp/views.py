@@ -1,10 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
-from .models import Bike, Rental
+from django.views.generic import ListView, DetailView
+from .models import Bike
 from django.db.models import Q  # For complex queries
-from .forms import RentalForm
-from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Home Page (FBV)
 def home(request):
@@ -31,20 +28,3 @@ class BikeDetailView(DetailView):
     model = Bike
     template_name = 'myapp/bike_detail.html'
     context_object_name = 'bike'  # Name of the variable in the template
-
-class RentBikeView(LoginRequiredMixin, CreateView):
-    model = Rental
-    form_class = RentalForm
-    template_name = 'myapp/rent_bike.html'
-    success_url = reverse_lazy('bike_list')  # Redirect after successful rental
-
-    def form_valid(self, form):
-        # Set the user and bike before saving
-        form.instance.user = self.request.user
-        form.instance.bike = Bike.objects.get(pk=self.kwargs['pk'])
-        return super().form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['bike'] = Bike.objects.get(pk=self.kwargs['pk'])
-        return context
