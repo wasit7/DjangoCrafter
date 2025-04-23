@@ -6,6 +6,9 @@ from .forms import RentalForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from rest_framework import generics
+from .serializers import BikeSerializer
+
 # Home Page (FBV)
 def home(request):
     return render(request, 'myapp/home.html')
@@ -48,3 +51,12 @@ class RentBikeView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context['bike'] = Bike.objects.get(pk=self.kwargs['pk'])
         return context
+    
+# New API Views
+class BikeListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Bike.objects.all()
+    serializer_class = BikeSerializer
+
+class BikeRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
+    queryset = Bike.objects.all()
+    serializer_class = BikeSerializer
