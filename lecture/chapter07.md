@@ -38,8 +38,8 @@ A CBV is a Python class whose *methods* correspond to HTTP verbs (`get()`, `post
 | ------------------------- | ------ | ------ |
 | Lines of code for CRUD    | 40–60  | 8–12   |
 | On-boarding cost          | 1 hour | 1 day  |
-| Readability               | ★★★★★  | ★★★☆☆  |
-| Extensibility (large app) | ★★☆☆☆  | ★★★★★  |
+| Readability               | High   | Medium |
+| Extensibility (large app) | Low    | High   |
 
 **1.7  Anti-Patterns**
 
