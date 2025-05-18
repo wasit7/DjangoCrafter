@@ -1,0 +1,45 @@
+<!-- /myproject/myapp/templates/myapp/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bike Rental{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Header with Navigation -->
+    <header class="bg-blue-600 text-white p-4 shadow">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">
+                <a href="{% url 'home' %}" class="hover:text-gray-200 transition">Bike Rental</a>
+            </h1>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="{% url 'home' %}" class="hover:text-gray-200 transition">Home</a></li>
+                    <li><a href="{% url 'bike_list' %}" class="hover:text-gray-200 transition">Bikes</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'dashboard' %}" class="hover:text-gray-200 transition">Dashboard</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'account_login' %}" class="hover:text-gray-200 transition">Login</a></li>
+                    <li><a href="{% url 'account_logout' %}" class="hover:text-gray-200 transition">Logout</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-6">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 mt-6">
+        <div class="container mx-auto text-center">
+            <p>© 2025 Bike Rental. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

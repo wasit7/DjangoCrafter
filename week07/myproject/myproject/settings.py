@@ -39,6 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myapp',
     'django_extensions',
+    'rest_framework',
+    'django.contrib.sites', #new
+    'allauth', #new
+    'allauth.account', #new
+    'allauth.socialaccount', #new
+    'allauth.socialaccount.providers.google', #new
 ]
 
 MIDDLEWARE = [
@@ -49,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware' #new
 ]
 
 ROOT_URLCONF = 'myproject.urls'
@@ -127,3 +134,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '67488827634-ibttc7d9amgite8ivc3ecl2qqrnmhuje.apps.googleusercontent.com', #new
+            'secret': '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', #new
+            'key': ''
+        }
+    }
+}
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+SITE_ID = 1
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+LOGIN_REDIRECT_URL = 'home'

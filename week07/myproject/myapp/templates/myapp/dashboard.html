@@ -1,0 +1,67 @@
+<!-- /myproject/myapp/templates/myapp/dashboard.html -->
+{% extends 'myapp/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
+
+    <!-- Statistics Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white p-6 rounded shadow flex flex-col items-center">
+            <h2 class="text-xl font-semibold text-gray-700">Total Bikes</h2>
+            <p class="text-3xl font-bold text-blue-600">{{ total_bikes }}</p>
+        </div>
+        <div class="bg-white p-6 rounded shadow flex flex-col items-center">
+            <h2 class="text-xl font-semibold text-gray-700">Available Bikes</h2>
+            <p class="text-3xl font-bold text-green-600">{{ available_bikes }}</p>
+        </div>
+        <div class="bg-white p-6 rounded shadow flex flex-col items-center">
+            <h2 class="text-xl font-semibold text-gray-700">Unavailable Bikes</h2>
+            <p class="text-3xl font-bold text-red-600">{{ unavailable_bikes }}</p>
+        </div>
+        <div class="bg-white p-6 rounded shadow flex flex-col items-center">
+            <h2 class="text-xl font-semibold text-gray-700">Total Rentals</h2>
+            <p class="text-3xl font-bold text-blue-600">{{ total_rentals }}</p>
+        </div>
+        <div class="bg-white p-6 rounded shadow flex flex-col items-center">
+            <h2 class="text-xl font-semibold text-gray-700">Total Revenue</h2>
+            <p class="text-3xl font-bold text-green-600">${{ total_revenue|floatformat:2 }}</p>
+        </div>
+    </div>
+
+    <!-- Recent Rentals -->
+    <div class="bg-white p-6 rounded shadow">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Recent Rentals</h2>
+        {% if recent_rentals %}
+            <table class="w-full text-left">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="p-3">User</th>
+                        <th class="p-3">Bike</th>
+                        <th class="p-3">Start Time</th>
+                        <th class="p-3">End Time</th>
+                        <th class="p-3">Total Fee</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rental in recent_rentals %}
+                        <tr class="border-b">
+                            <td class="p-3">{{ rental.user.username }}</td>
+                            <td class="p-3">{{ rental.bike.name }}</td>
+                            <td class="p-3">{{ rental.start_time|date:"Y-m-d H:i" }}</td>
+                            <td class="p-3">
+                                {% if rental.end_time %}
+                                    {{ rental.end_time|date:"Y-m-d H:i" }}
+                                {% else %}
+                                    <span class="text-red-600">Active</span>
+                                {% endif %}
+                            </td>
+                            <td class="p-3">${{ rental.total_fee|floatformat:2 }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-gray-600">No recent rentals.</p>
+        {% endif %}
+    </div>
+{% endblock %}

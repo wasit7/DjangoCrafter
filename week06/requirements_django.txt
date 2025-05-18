@@ -8,3 +8,4 @@ jupyterlab==4.0.2
 # Optionally, add other libraries:
 # tailwindcss, whitenoise, or anything else you use in your project
 Pillow
+djangorestframework
