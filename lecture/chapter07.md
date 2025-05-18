@@ -6,49 +6,47 @@ In the Model-View-Template (MVT) triad, *views* mediate between persistent data 
 
 ### **1. Theories**
 
-**1.1  Anatomy of an FBV (≈250 words)**
+**1.1  Anatomy of an FBV**
 An FBV is simply a Python callable that accepts an `HttpRequest` instance and returns an `HttpResponse` (or subclass). Inside, you are free to orchestrate ORM queries, form handling, business logic, and template rendering. Because the body is *linear*, the cognitive path from request to response is literally top-to-bottom, which makes FBVs self-documenting. Decorating an FBV with `@login_required` (or any custom decorator) is nothing more than function composition—a first-class notion in Python. Under the hood, Django resolves the URL, calls your function, then hands its return value to the WSGI layer. There is zero metaclass magic, so `print()` debugging and IDE “go-to definition” both work flawlessly.
 
-**1.2  Anatomy of a CBV (≈250 words)**
+**1.2  Anatomy of a CBV**
 A CBV is a Python class whose *methods* correspond to HTTP verbs (`get()`, `post()`, `patch()`, etc.). The class is itself callable because Django’s `View` base class implements `__call__`, delegating to `dispatch()`, which performs method routing and middleware-like hooks (`setup()`, `initial()`, `dispatch()`, `finalize_response()`). In practice, you rarely inherit from `View` directly. Instead, you choose a *generic view* such as `ListView`, `DetailView`, or `CreateView`, which arrives pre-wired with querysets, context naming, pagination, and form handling. Through **mixins** (`LoginRequiredMixin`, `PermissionRequiredMixin`, `JsonResponseMixin`) you compose cross-cutting concerns with declarative brevity. The trade-off is indirection: to understand a single line—`class BikeListView(LoginRequiredMixin, ListView):`—you must follow the Method Resolution Order (MRO) across three or more classes.
 
-**1.3  When FBVs Shine (≈150 words)**
+**1.3  When FBVs Shine**
 
 * **Atomicity**: One-off pages (health-check, Webhook endpoint) are easier to express as a function.
 * **Performance profiling**: A flat call-stack makes flame charts readable.
 * **Learning curve**: Junior developers grok them immediately.
 * **Decorators**: Wrapping with `@cache_page` or `@require_http_methods` is ergonomic.
 
-**1.4  When CBVs Shine (≈150 words)**
+**1.4  When CBVs Shine**
 
 * **Boilerplate reduction**: CRUD pages differ only in model name and template; CBVs compress them to a four-line class.
 * **Consistency**: Team conventions around `get_queryset()` and `get_context_data()` ensure predictable extension points.
 * **Multiple verbs**: `FormView` elegantly handles GET (render) vs POST (process) without `if request.method == "POST"`.
 * **DRY mixins**: Orthogonal behaviours—authentication, rate limiting, JSON serialization—compose without nested `if` blocks.
 
-**1.5  Internals, Hooks, and Extensibility (≈150 words)**
+**1.5  Internals, Hooks, and Extensibility**
 
 * *FBV decorators* operate pre- or post-execution; they cannot easily intercept class attributes.
 * *CBV hooks*: `setup()`, `dispatch()`, `get_template_names()` allow deep customisation while preserving superclass logic via `super()`.
 * *URL patterns*: An FBV is passed directly, whereas a CBV must be *adapted* through `.as_view()`, which instantiates the class per request.
 
-**1.6  Decision Rubric (≈100 words)**
+**1.6  Decision Rubric**
 
 | Dimension                 | FBV    | CBV    |
 | ------------------------- | ------ | ------ |
 | Lines of code for CRUD    | 40–60  | 8–12   |
 | On-boarding cost          | 1 hour | 1 day  |
-| Readability (small file)  | ★★★★★  | ★★★☆☆  |
+| Readability               | ★★★★★  | ★★★☆☆  |
 | Extensibility (large app) | ★★☆☆☆  | ★★★★★  |
-| Testing isolation         | Simple | Simple |
 
-**1.7  Anti-Patterns (≈100 words)**
+**1.7  Anti-Patterns**
 
 * Huge FBVs with intertwined GET/POST logic → split into CBV.
 * CBVs overloaded with `if self.request.user.is_superuser` branches → revert to FBV or separate class.
 * Copy–pasted FBVs differing only by model → generic CBV with `model` attribute.
 
-*Total ≈1000 words.*
 
 ---
 
